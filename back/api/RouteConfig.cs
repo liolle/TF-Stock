@@ -11,6 +11,11 @@ public static class RouteConfig
             pattern: "{controller=Product}/{action=Update}/{id?}"
         );
 
+        app.MapControllerRoute(
+            name: "consume-product",
+            pattern: "{controller=Product}/{action=Consume}/{id?}"
+        );
+
 
     }
 }

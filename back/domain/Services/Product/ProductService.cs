@@ -55,7 +55,7 @@ public class ProductService(IDataContext context) : IProductService
         }
         catch (Exception e)
         {
-            return ICommandResult.Failure("",e);
+            return ICommandResult.Failure(e.Message);
         }
     }
 
@@ -88,7 +88,7 @@ public class ProductService(IDataContext context) : IProductService
         }
         catch (Exception e)
         {
-           return IQueryResult<ProductEntity>.Failure("",e);
+           return IQueryResult<ProductEntity>.Failure(e.Message);
         }
     }
 
@@ -112,7 +112,31 @@ public class ProductService(IDataContext context) : IProductService
         }
         catch (Exception e)
         {
-            return ICommandResult.Failure("",e);
+            return ICommandResult.Failure(e.Message);
+        }
+    }
+
+    public CommandResult Execute(ConsumeProductCommand command)
+    {
+                try
+        {
+            using SqlConnection conn = context.CreateConnection();
+            conn.Open();
+            using SqlCommand cmd = new SqlCommand("OutputProductAndTransaction", conn){
+                CommandType = System.Data.CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@Quantity", command.Quantity);
+            cmd.Parameters.AddWithValue("@ProductId", command.Id);
+            cmd.Parameters.AddWithValue("@UserId", 1);
+            int rowsAffected = cmd.ExecuteNonQuery();
+            if (rowsAffected <1) {return ICommandResult.Failure($"Could not consume {command.Quantity} product");}
+            
+            return ICommandResult.Success();
+        }
+        catch (Exception e)
+        {
+            return ICommandResult.Failure(e.Message);
         }
     }
 }
