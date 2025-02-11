@@ -10,7 +10,8 @@ public interface IProductService :
     ICommandHandler<UpdateProductCommand>,
     ICommandHandler<ConsumeProductCommand>,
 
-    IQueryHandler<ProductByGTINQuery,ProductEntity>
+    IQueryHandler<ProductByGTINQuery,ProductEntity>,
+    IQueryHandler<AllProductQuery,ICollection<ProductEntity>>
 {
     
 }

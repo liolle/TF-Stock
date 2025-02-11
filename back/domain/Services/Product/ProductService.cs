@@ -118,7 +118,7 @@ public class ProductService(IDataContext context) : IProductService
 
     public CommandResult Execute(ConsumeProductCommand command)
     {
-                try
+        try
         {
             using SqlConnection conn = context.CreateConnection();
             conn.Open();
@@ -138,5 +138,38 @@ public class ProductService(IDataContext context) : IProductService
         {
             return ICommandResult.Failure(e.Message);
         }
+    }
+
+    public QueryResult<ICollection<ProductEntity>> Execute(AllProductQuery query)
+    {
+        List<ProductEntity> products = [];
+
+        try
+        {
+            using SqlConnection conn = context.CreateConnection();
+            string sql_query = "SELECT Id, Quantity, GTIN, Price, Name, LastModified, Transactions FROM Products";
+            using SqlCommand cmd = new SqlCommand(sql_query, conn);
+            conn.Open();
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                products.Add(new ProductEntity(
+                    (int)reader[nameof(ProductEntity.Id)],
+                    (int)reader[nameof(ProductEntity.Quantity)],
+                    (string)reader[nameof(ProductEntity.GTIN)],
+                    (int)reader[nameof(ProductEntity.Price)],
+                    (string)reader[nameof(ProductEntity.Name)],
+                    (DateTime)reader[nameof(ProductEntity.LastModified)],
+                    (int)reader[nameof(ProductEntity.Transactions)]
+                ));
+
+            }
+        }
+        catch (Exception e)
+        {
+            return IQueryResult<ICollection<ProductEntity>>.Failure(e.Message,e);
+        }
+
+        return IQueryResult<ICollection<ProductEntity>>.Success(products);
     }
 }
