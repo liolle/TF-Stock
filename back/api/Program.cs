@@ -1,4 +1,5 @@
 using DotNetEnv;
+using Microsoft.AspNetCore.Identity;
 using stock.dal.database;
 using stock.domain.services;
 
@@ -11,6 +12,8 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Modify config variable that will be injected by Services.AddSingleton<IConfiguration>(configuration)
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
 
 // DB
 builder.Services.AddScoped<IDataContext,DataContext>();
