@@ -9,3 +9,9 @@ public class AddProductModel {
 
     public int Price { get; set; } 
 }
+
+public class UpdateProductModel {
+    public  int Id { get; set; }
+
+    public int Quantity { get; set; } 
+}

@@ -7,6 +7,7 @@ namespace stock.domain.services;
 
 public interface IProductService : 
     ICommandHandler<AddProductCommand>,
+    ICommandHandler<UpdateProductCommand>,
 
     IQueryHandler<ProductByGTINQuery,ProductEntity>
 {

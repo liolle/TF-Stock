@@ -15,4 +15,12 @@ public class ProductController(IProductService _ps) : ControllerBase
         );
         return Ok(_ps.Execute(command));
     }
+
+    public IActionResult Update([FromBody] UpdateProductModel model){
+        UpdateProductCommand command = new(
+            model.Id,
+            model.Quantity
+        );
+        return Ok(_ps.Execute(command));
+    }
 }

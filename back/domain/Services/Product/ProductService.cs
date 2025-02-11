@@ -91,4 +91,28 @@ public class ProductService(IDataContext context) : IProductService
            return IQueryResult<ProductEntity>.Failure("",e);
         }
     }
+
+    public CommandResult Execute(UpdateProductCommand command)
+    {
+        try
+        {
+            using SqlConnection conn = context.CreateConnection();
+            conn.Open();
+            using SqlCommand cmd = new SqlCommand("ChangeProductAndTransaction", conn){
+                CommandType = System.Data.CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@Quantity", command.Quantity);
+            cmd.Parameters.AddWithValue("@ProductId", command.Id);
+            cmd.Parameters.AddWithValue("@UserId", 1);
+            int rowsAffected = cmd.ExecuteNonQuery();
+            if (rowsAffected <1) {return ICommandResult.Failure("Failed to Update product");}
+            
+            return ICommandResult.Success();
+        }
+        catch (Exception e)
+        {
+            return ICommandResult.Failure("",e);
+        }
+    }
 }

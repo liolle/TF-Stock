@@ -2,7 +2,6 @@ using stock.CQS;
 
 namespace stock.domain.Commands;
 
-
 public class AddProductCommand(string name, int quantity, string gTIN, int price) : ICommandDefinition
 {
     public string Name { get; set; } = name;
