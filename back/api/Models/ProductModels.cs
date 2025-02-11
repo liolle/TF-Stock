@@ -16,3 +16,7 @@ public class UpdateProductModel {
     public int Quantity { get; set; } 
 }
 
+
+public class GetTransactionByProductIdQuery {
+    public  int Id { get; set; }
+}

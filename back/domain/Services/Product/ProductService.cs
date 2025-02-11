@@ -172,4 +172,37 @@ public class ProductService(IDataContext context) : IProductService
 
         return IQueryResult<ICollection<ProductEntity>>.Success(products);
     }
+
+    public QueryResult<ICollection<TransactionEntity>> Execute(TransactionByProductIdQuery query)
+    {
+        List<TransactionEntity> transactions = [];
+
+        try
+        {
+            using SqlConnection conn = context.CreateConnection();
+            string sql_query = "SELECT Id, Type, Quantity, Date, ProductId, UserId FROM Transactions WHERE ProductId = @ProductId";
+            using SqlCommand cmd = new SqlCommand(sql_query, conn);
+            cmd.Parameters.AddWithValue("@ProductId",query.Id);
+            conn.Open();
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                TransactionEntity product = new(
+                    (int)reader[nameof(TransactionEntity.Id)],
+                    (string)reader[nameof(TransactionEntity.Type)],
+                    (int)reader[nameof(TransactionEntity.Quantity)],
+                    (DateTime)reader[nameof(TransactionEntity.Date)],
+                    (int)reader[nameof(TransactionEntity.ProductId)],
+                    (int)reader[nameof(TransactionEntity.UserId)]
+                );
+                transactions.Add(product);
+            }
+        }
+        catch (Exception e)
+        {
+            return IQueryResult<ICollection<TransactionEntity>>.Failure(e.Message,e);
+        }
+
+        return IQueryResult<ICollection<TransactionEntity>>.Success(transactions);
+    }
 }

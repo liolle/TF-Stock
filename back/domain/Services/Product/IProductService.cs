@@ -11,7 +11,8 @@ public interface IProductService :
     ICommandHandler<ConsumeProductCommand>,
 
     IQueryHandler<ProductByGTINQuery,ProductEntity>,
-    IQueryHandler<AllProductQuery,ICollection<ProductEntity>>
+    IQueryHandler<AllProductQuery,ICollection<ProductEntity>>,
+    IQueryHandler<TransactionByProductIdQuery,ICollection<TransactionEntity>>
 {
     
 }
