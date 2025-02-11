@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using stock.dal.database;
+using stock.domain.entities;
 using stock.domain.services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,12 +50,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
-builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
-builder.Services.AddScoped<IJWTService, JWTService>();
+// Polices
+builder.Services.AddAuthorization(options =>
+{
+   options.AddPolicy("AdminOnly", policy => policy.RequireClaim(nameof(User.Role),"Admin"));
+});
 
 // DB
 builder.Services.AddScoped<IDataContext,DataContext>();
+
+//Services 
+builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
+builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddTransient<IHashService,HashService>();
 builder.Services.AddTransient<IUserService,UserService>();
 builder.Services.AddTransient<IProductService,ProductService>();

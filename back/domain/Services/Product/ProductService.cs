@@ -33,7 +33,7 @@ public class ProductService(IDataContext context) : IProductService
                 cmd.Parameters.AddWithValue("@Price", command.Price);
                 cmd.Parameters.AddWithValue("@Name", command.Name);
                 cmd.Parameters.AddWithValue("@GTIN", command.GTIN);
-                cmd.Parameters.AddWithValue("@UserId", 1);
+                cmd.Parameters.AddWithValue("@UserId", command.UserId);
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected <1) {return ICommandResult.Failure("Failed to add product");}
             }else
@@ -45,7 +45,7 @@ public class ProductService(IDataContext context) : IProductService
 
                 cmd.Parameters.AddWithValue("@Quantity", command.Quantity);
                 cmd.Parameters.AddWithValue("@ProductId", result.Result.Id);
-                cmd.Parameters.AddWithValue("@UserId", 1);
+                cmd.Parameters.AddWithValue("@UserId", command.UserId);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected <1) {return ICommandResult.Failure("Failed to add product");}
@@ -104,7 +104,7 @@ public class ProductService(IDataContext context) : IProductService
 
             cmd.Parameters.AddWithValue("@Quantity", command.Quantity);
             cmd.Parameters.AddWithValue("@ProductId", command.Id);
-            cmd.Parameters.AddWithValue("@UserId", 1);
+            cmd.Parameters.AddWithValue("@UserId", command.UserId);
             int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected <1) {return ICommandResult.Failure("Failed to Update product");}
             
@@ -128,7 +128,7 @@ public class ProductService(IDataContext context) : IProductService
 
             cmd.Parameters.AddWithValue("@Quantity", command.Quantity);
             cmd.Parameters.AddWithValue("@ProductId", command.Id);
-            cmd.Parameters.AddWithValue("@UserId", 1);
+            cmd.Parameters.AddWithValue("@UserId", command.UserId);
             int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected <1) {return ICommandResult.Failure($"Could not consume {command.Quantity} product");}
             

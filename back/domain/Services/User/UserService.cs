@@ -80,8 +80,8 @@ public class UserService(IDataContext context, IHashService hashService, IJWTSer
                     (string)reader[nameof(User.FirstName)],
                     (string)reader[nameof(User.LastName)],
                     (string)reader[nameof(User.Email)],
-                    (string)reader[nameof(User.Role)],
                     (string)reader[nameof(User.UserName)],
+                    (string)reader[nameof(User.Role)],
                     (string)reader[nameof(User.Password)]
                 );
                 return IQueryResult<User?>.Success(u);

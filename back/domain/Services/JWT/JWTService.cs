@@ -32,7 +32,8 @@ public class JWTService  : IJWTService
             new(nameof(User.Id), user.Id.ToString()),    
             new(nameof(User.FirstName), user.FirstName),             
             new(nameof(User.LastName), user.LastName),                
-            new(nameof(User.Email), user.Email),                     
+            new(nameof(User.Email), user.Email), 
+            new(nameof(User.Role), user.Role),                     
         };
 
         // Standardized User info
