@@ -1,4 +1,5 @@
 using DotNetEnv;
+using stock.dal.database;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -9,6 +10,9 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Modify config variable that will be injected by Services.AddSingleton<IConfiguration>(configuration)
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+// DB
+builder.Services.AddScoped<IDataContext,DataContext>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
