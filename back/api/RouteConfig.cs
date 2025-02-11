@@ -20,8 +20,24 @@ public static class RouteConfig
 
         //Transaction
         app.MapControllerRoute(
-            name: "consume-product",
+            name: "get-transactions",
             pattern: "{controller=Transaction}/{action=ByProduct}/{id?}"
+        );
+
+        //User
+        app.MapControllerRoute(
+            name: "login",
+            pattern: "{controller=User}/{action=Login}/{id?}"
+        );
+
+        app.MapControllerRoute(
+            name: "logout",
+            pattern: "{controller=User}/{action=Logout}/{id?}"
+        );
+
+        app.MapControllerRoute(
+            name: "register",
+            pattern: "{controller=User}/{action=Register}/{id?}"
         );
 
     }

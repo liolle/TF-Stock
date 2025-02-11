@@ -11,14 +11,14 @@ public class User
     public string UserName {get;set;}
 
     // Meant to be used only when an user is created.
-    internal User(int id, string firstName, string lastName, string email,string password,string role,string userName)
+    internal User(int id, string firstName, string lastName, string email,string userName,string role,string password)
     {
         Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
-        Password = password;
-        Role = role;
         UserName = userName;
+        Role = role;
+        Password = password;
     }
 }

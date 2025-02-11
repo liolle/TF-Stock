@@ -1,5 +1,4 @@
-namespace apiExo.domain.services;
-
+namespace stock.domain.services;
 
 public interface IHashService {
     public string HashPassword(string email, string password);

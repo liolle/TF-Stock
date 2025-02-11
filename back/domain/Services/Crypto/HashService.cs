@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-namespace apiExo.domain.services;
+namespace stock.domain.services;
 
 
 public class HashService(IPasswordHasher<string> passwordHasher) : IHashService
@@ -11,8 +11,8 @@ public class HashService(IPasswordHasher<string> passwordHasher) : IHashService
         return _passwordHasher.HashPassword(email, password);
     }
 
-    public bool VerifyPassword(string email, string hashedPassword, string password){
-        var result = _passwordHasher.VerifyHashedPassword(email, hashedPassword, password);
+    public bool VerifyPassword(string UserName, string hashedPassword, string password){
+        var result = _passwordHasher.VerifyHashedPassword(UserName, hashedPassword, password);
         return result == PasswordVerificationResult.Success;
     }
 }
