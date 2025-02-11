@@ -4,6 +4,7 @@ CREATE PROCEDURE InsertProductAndTransaction
     @Quantity INT, 
     @Price INT, 
     @Name NVARCHAR(100), 
+    @GTIN VARCHAR(14),
     @UserId INT 
 AS
 BEGIN

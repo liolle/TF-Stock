@@ -1,5 +1,6 @@
 using DotNetEnv;
 using stock.dal.database;
+using stock.domain.services;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -13,6 +14,7 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // DB
 builder.Services.AddScoped<IDataContext,DataContext>();
+builder.Services.AddTransient<IProductService,ProductService>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
