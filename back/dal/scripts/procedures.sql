@@ -1,6 +1,5 @@
 
-/** Add Product **/ 
-/*User */
+/** Add new product **/ 
 CREATE PROCEDURE InsertProductAndTransaction
     @Quantity INT, 
     @Price INT, 
@@ -34,7 +33,7 @@ BEGIN
 END;
 
 go;
-
+/** Add existing product **/ 
 CREATE PROCEDURE AddProductAndTransaction
     @Quantity INT, 
     @UserId INT,
@@ -63,7 +62,7 @@ END;
 
 go;
 
-/** Output Products **/
+/** Consume Products **/
 CREATE PROCEDURE OutputProductAndTransaction
     @Quantity INT, 
     @UserId INT,
@@ -92,7 +91,7 @@ END;
 
 go;
 
-/** Change Products **/
+/** Inventory update **/
 CREATE PROCEDURE ChangeProductAndTransaction
     @Quantity INT, 
     @UserId INT,
@@ -116,4 +115,3 @@ BEGIN
         THROW; -- Re-throw the error
     END CATCH
 END;
-
